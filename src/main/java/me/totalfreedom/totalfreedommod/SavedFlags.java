@@ -3,6 +3,7 @@ package me.totalfreedom.totalfreedommod;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
@@ -44,7 +45,7 @@ public class SavedFlags extends FreedomService
                     flags = (HashMap<String, Boolean>) ois.readObject();
                 }
             }
-            catch (Exception ex)
+            catch (IOException | ClassNotFoundException ex)
             {
                 FLog.severe(ex);
             }

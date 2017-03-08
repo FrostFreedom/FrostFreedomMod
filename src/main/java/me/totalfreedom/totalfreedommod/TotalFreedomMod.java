@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+import java.util.logging.Logger;
 import me.totalfreedom.totalfreedommod.admin.AdminList;
 import me.totalfreedom.totalfreedommod.banning.BanManager;
 import me.totalfreedom.totalfreedommod.banning.PermbanList;
@@ -43,7 +44,9 @@ import org.mcstats.Metrics;
 
 public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
 {
-
+    public static TotalFreedomMod tplugin;
+    public Logger freelog;
+    //
     public static final String CONFIG_FILENAME = "config.yml";
     //
     public static final BuildProperties build = new BuildProperties();
@@ -89,7 +92,6 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
     public AutoEject ae;
     public MovementValidator mv;
     public EntityWiper ew;
-    public FrontDoor fd;
     public ServerPing sp;
     public ItemFun it;
     public Landminer lm;
@@ -108,9 +110,12 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
     @Override
     public void load()
     {
+        TotalFreedomMod.tplugin = this;
         TotalFreedomMod.pluginName = plugin.getDescription().getName();
         TotalFreedomMod.pluginVersion = plugin.getDescription().getVersion();
 
+        freelog = FLog.getPluginLogger();
+        
         FLog.setPluginLogger(plugin.getLogger());
         FLog.setServerLogger(server.getLogger());
 
@@ -186,7 +191,6 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
 
         mv = services.registerService(MovementValidator.class);
         ew = services.registerService(EntityWiper.class);
-        fd = services.registerService(FrontDoor.class);
         sp = services.registerService(ServerPing.class);
 
         // Fun

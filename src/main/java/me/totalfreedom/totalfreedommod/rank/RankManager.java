@@ -48,11 +48,22 @@ public class RankManager extends FreedomService
         {
             return Rank.IMPOSTOR;
         }
+        
+        // Put Owners showing up first
+        if (ConfigEntry.SERVER_OWNERS.getList().contains(player.getName()))
+        {
+            return Title.OWNER;
+        }
 
         // Developers always show up
-        if (FUtil.DEVELOPERS.contains(player.getName()))
+        if (FUtil.FFM_DEVELOPERS.contains(player.getName()))
         {
-            return Title.DEVELOPER;
+            return Title.FFM_DEVELOPER;
+        }
+        
+        if (FUtil.TFM_DEVELOPERS.contains(player.getName()))
+        {
+            return Title.TFM_DEVELOPER;
         }
 
         final Rank rank = getRank(player);
@@ -62,13 +73,6 @@ public class RankManager extends FreedomService
         {
             return rank;
         }
-
-        // If the player's an owner, display that
-        if (ConfigEntry.SERVER_OWNERS.getList().contains(player.getName()))
-        {
-            return Title.OWNER;
-        }
-
         return rank;
     }
 
@@ -158,7 +162,9 @@ public class RankManager extends FreedomService
         }
 
         // Set display
-        if (isAdmin || FUtil.DEVELOPERS.contains(player.getName()))
+        if (isAdmin || FUtil.FFM_DEVELOPERS.contains(player.getName()) ||
+                FUtil.TFM_DEVELOPERS.contains(player.getName()) ||
+                ConfigEntry.SERVER_OWNERS.getList().contains(player.getName()))
         {
             final Displayable display = getDisplay(player);
             String loginMsg = display.getColoredLoginMessage();

@@ -7,10 +7,10 @@ import java.util.Date;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
 import lombok.Getter;
 import me.totalfreedom.totalfreedommod.FreedomService;
 import me.totalfreedom.totalfreedommod.TotalFreedomMod;
-import me.totalfreedom.totalfreedommod.command.Command_logs;
 import me.totalfreedom.totalfreedommod.config.ConfigEntry;
 import me.totalfreedom.totalfreedommod.rank.Rank;
 import me.totalfreedom.totalfreedommod.util.FLog;
@@ -78,7 +78,7 @@ public class AdminList extends FreedomService
             ConfigurationSection section = config.getConfigurationSection(key);
             if (section == null)
             {
-                logger.warning("Invalid admin list format: " + key);
+                logger.log(Level.WARNING, "Invalid admin list format: {0}", key);
                 continue;
             }
 
@@ -129,6 +129,17 @@ public class AdminList extends FreedomService
         Admin admin = getAdmin((Player) sender);
 
         return admin != null && admin.isActive();
+    }
+
+    public boolean isTelnetAdmin(CommandSender sender)
+    {
+        Admin admin = getAdmin(sender);
+        if (admin == null)
+        {
+            return false;
+        }
+
+        return admin.getRank().ordinal() >= Rank.TELNET_ADMIN.ordinal();
     }
 
     public boolean isSeniorAdmin(CommandSender sender)
@@ -235,7 +246,14 @@ public class AdminList extends FreedomService
 
     public boolean isAdminImpostor(Player player)
     {
-        return getEntryByName(player.getName()) != null && !isAdmin(player);
+        if (FUtil.imposters.contains(player.getName()))
+        {
+            return true;
+        }
+        else
+        {
+            return getEntryByName(player.getName()) != null && !isAdmin(player);
+        }
     }
 
     public boolean isIdentityMatched(Player player)
@@ -341,7 +359,7 @@ public class AdminList extends FreedomService
 
             if (verbose)
             {
-                FUtil.adminAction("TotalFreedomMod", "Deactivating superadmin " + admin.getName() + ", inactive for " + lastLoginHours + " hours", true);
+                FUtil.adminAction("FrostFreedomMod", "Deactivating superadmin " + admin.getName() + ", inactive for " + lastLoginHours + " hours", true);
             }
 
             admin.setActive(false);

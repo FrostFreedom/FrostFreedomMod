@@ -28,6 +28,9 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
+import me.totalfreedom.totalfreedommod.player.FPlayer;
+import org.bukkit.Sound;
+import org.bukkit.entity.EntityType;
 
 public class FUtil
 {
@@ -36,7 +39,9 @@ public class FUtil
     //
     public static final String SAVED_FLAGS_FILENAME = "savedflags.dat";
     // See https://github.com/TotalFreedom/License - None of the listed names may be removed.
-    public static final List<String> DEVELOPERS = Arrays.asList("Madgeek1450", "Prozza", "Wild1145", "WickedGamingUK", "aggelosQQ");
+    public static final List<String> TFM_DEVELOPERS = Arrays.asList("Madgeek1450", "Prozza", "Wild1145", "WickedGamingUK", "aggelosQQ");
+    public static final List<String> FOP_DEVELOPERS = Arrays.asList("Paldiu", "Dragonfire147", "Freelix2000", "slimeh4778");
+    public static final List<String> FFM_DEVELOPERS = Arrays.asList("tylerhyperHD");
     public static String DATE_STORAGE_FORMAT = "EEE, d MMM yyyy HH:mm:ss Z";
     public static final Map<String, ChatColor> CHAT_COLOR_NAMES = new HashMap<>();
     public static final List<ChatColor> CHAT_COLOR_POOL = Arrays.asList(
@@ -52,6 +57,8 @@ public class FUtil
             ChatColor.RED,
             ChatColor.LIGHT_PURPLE,
             ChatColor.YELLOW);
+    
+    public static ArrayList<String> imposters = new ArrayList<>();
 
     static
     {
@@ -399,5 +406,141 @@ public class FUtil
         String packageName = Bukkit.getServer().getClass().getPackage().getName();
         return packageName.substring(packageName.lastIndexOf('.') + 1);
     }
+    
+    // Start implementing FOPM Changes //
+    public static boolean inGod(FPlayer player)
+    {
+        return player.inGod();
+    }
+
+    public static void setGod(FPlayer player, boolean enabled)
+    {
+        player.setGod(enabled);
+    }
+
+    public static boolean isDoubleJumper(FPlayer player)
+    {
+        return player.isDoubleJumper();
+    }
+
+    public static void setDoubleJumper(FPlayer player, boolean state)
+    {
+        player.setDoubleJumper(state);
+    }
+
+    public static void asciiDog()
+    {
+        //This was VERY annoying to make!
+        FUtil.bcastMsg("                     ,", FUtil.randomChatColor());
+        FUtil.bcastMsg("                ,.  | \\ ", FUtil.randomChatColor());
+        FUtil.bcastMsg("               |: \\ ; :\\ ", FUtil.randomChatColor());
+        FUtil.bcastMsg("               :' ;\\| ::\\", FUtil.randomChatColor());
+        FUtil.bcastMsg("                \\ : | `::\\ ", FUtil.randomChatColor());
+        FUtil.bcastMsg("                _)  |   `:`. ", FUtil.randomChatColor());
+        FUtil.bcastMsg("              ,' , `.    ;: ; ", FUtil.randomChatColor());
+        FUtil.bcastMsg("            ,' ;:  ;\"'  ,:: |", FUtil.randomChatColor());
+        FUtil.bcastMsg("           /,   ` .    ;::: |:`-.__ ", FUtil.randomChatColor());
+        FUtil.bcastMsg("        _,' _o\\  ,::.`:' ;  ;   . ' ", FUtil.randomChatColor());
+        FUtil.bcastMsg("    _,-'           `:.          ;\"\"", FUtil.randomChatColor());
+        FUtil.bcastMsg(" ,-'                     ,:         `-;, ", FUtil.randomChatColor());
+        FUtil.bcastMsg(" \\,                       ;:           ;--._ ", FUtil.randomChatColor());
+        FUtil.bcastMsg("  `.______,-,----._     ,' ;:        ,/ ,  ,` ", FUtil.randomChatColor());
+        FUtil.bcastMsg("         / /,-';'  \\     ; `:      ,'/,::.::: ", FUtil.randomChatColor());
+        FUtil.bcastMsg("       ,',;-'-'_,--;    ;   :.   ,',',;:::::: ", FUtil.randomChatColor());
+        FUtil.bcastMsg("      ( /___,-'     `.     ;::,,'o/  ,::::::: ", FUtil.randomChatColor());
+        FUtil.bcastMsg("       `'             )    ;:,'o /  ;\"-   -:: ", FUtil.randomChatColor());
+        FUtil.bcastMsg("                      \\__ _,'o ,'         ,:: ", FUtil.randomChatColor());
+        FUtil.bcastMsg("                         ) `--'       ,..:::: ", FUtil.randomChatColor());
+        FUtil.bcastMsg("                         ; `.        ,::::::: ", FUtil.randomChatColor());
+        FUtil.bcastMsg("                          ;  ``::.    ::::::: ", FUtil.randomChatColor());
+    }
+
+    public static void asciiHorse()
+    {
+        FUtil.bcastMsg(FUtil.randomChatColor() + ",  ,.~\"\"\"\"\"~~..");
+        FUtil.bcastMsg(FUtil.randomChatColor() + " )\\,)\\`-,       `~._                                     .--._");
+        FUtil.bcastMsg(FUtil.randomChatColor() + " \\  \\ | )           `~._                   .-\"\"\"\"\"-._   /     `.");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "/ ('  ( _(\\            `~~,__________..-\"'          `-<        \\");
+        FUtil.bcastMsg(FUtil.randomChatColor() + " )   )   `   )/)   )        \\                            \\,-.     |");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "') /)`      \\` \\,-')/\\      (                             \\ /     |");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "(_(\\ /7      |.   /'  )'  _(`                              Y      |");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "   \\       (  `.     ')_/`                                |      /");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "     \\       \\   \\                                         |)    (");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "      \\ _  /\\/   /                                         (      `~.");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "       `-._)     |                                        / \\        `,");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "                |                          |           .'   )      (`");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "                \\                        _,\\          /     \\_    (`");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "                  `.,      /       __..'7\"  \\         |       )  (");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "                  .'     _/`-..--\"\"      `.   `.        \\      `._/");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "                .'    _.j     /            `-.  `.       \\");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "              .'   _.'   \\    |               `.  `.      \\");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "             |   .'       ;   ;               .'  .'`.     \\");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "             \\_  `.       |   \\             .'  .'   /    .'");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "               `.  `-, __ \\   /           .'  .'     |   (");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "                 `.  `'` \\|  |           /  .-`     /   .'");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "                   `-._.--t  ;          |_.-)      /  .'");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "                          ; /           \\  /      / .'");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "                         / /             `'     .' /");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "                        /,_\\                  .',_(");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "                       /___(                 /___(");
+    }
+
+    public static void asciiUnicorn()
+    {
+        for (Player player : Bukkit.getOnlinePlayers())
+        {
+            player.playSound(player.getLocation(), Sound.ENTITY_FIREWORK_TWINKLE, 1.0F, 1.0F);
+        }
+        FUtil.bcastMsg(FUtil.randomChatColor() + "                                                         ,/");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "                                                        //");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "                                                      ,//");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "                                          ___   /|   |//");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "                                      `__/\\_ --(/|___/-/");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "                                   \\|\\_-\\___ __-_`- /-/ \\.");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "                                  |\\_-___,-\\_____--/_)' ) \\");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "                                   \\ -_ /     __ \\( `( __`\\|");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "                                   `\\__|      |\\)\\ ) /(/|");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "           ,._____.,            ',--//-|      \\  |  '   /");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "          /     __. \\,          / /,---|       \\       /");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "        |  | ( (  \\   |      ,/\\'__/'/          |     |");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "        |  \\  \\`--, `_/_------______/           \\(   )/");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "        | | \\  \\_. \\,                            \\___/\\");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "        | |  \\_   \\  \\                                 \\");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "        \\ \\    \\_ \\   \\   /                             \\");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "         \\ \\  \\._  \\__ \\_|       |                       \\");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "          \\ \\___  \\      \\       |                        \\");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "           \\__ \\__ \\  \\_ |       \\                         |");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "           |  \\_____ \\  ____      |                           |");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "           | \\  \\__ ---' .__\\     |        |                 |");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "           \\  \\__ ---   /   )     |        \\                /");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "            \\   \\____/ / ()(      \\          `---_         /|");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "             \\__________/(,--__    \\_________.    |       ./ |");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "               |     \\ \\  `---_\\--,           \\   \\_,./   |");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "               |      \\  \\_ ` \\    /`---_______-\\   \\\\    /");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "                \\      \\.___,`|   /              \\   \\\\   \\");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "                 \\     |  \\_ \\|   \\              (   |:    |");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "                  \\    \\      \\    |             /  / |    ;");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "                   \\    \\      \\    \\          ( `_'   \\  |");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "                    \\.   \\      \\.   \\          `__/   |  |");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "                      \\   \\       \\.  \\                |  |");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "                       \\   \\        \\  \\               (  )");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "                        \\   |        \\  |                |  |");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "                         |  \\         \\ \\               I  `");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "                         ( __;        ( _;                ('-_';");
+        FUtil.bcastMsg(FUtil.randomChatColor() + "                         |___\\       \\___:              \\___:");
+    }
+    
+    public static void spawnMob(Player player, EntityType entity, int amount)
+    {
+        int i = 0;
+        do
+        {
+            player.getWorld().spawnEntity(player.getLocation(), entity);
+            i++;
+        }
+        while (i <= amount);
+    }
+
+    // End implementing FOPM Changes //
 
 }
