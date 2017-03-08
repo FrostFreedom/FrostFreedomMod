@@ -123,6 +123,7 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
         FLog.info("Created by Madgeek1450 and Prozza");
         FLog.info("Version " + build.formattedVersion());
         FLog.info("Compiled " + build.date + " by " + build.author);
+        FLog.info("FrostFreedom by tylerhyperHD");
 
         final MethodTimer timer = new MethodTimer();
         timer.start();

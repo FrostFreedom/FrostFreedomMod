@@ -19,9 +19,8 @@
         <maven.build.timestamp.format>dd/MM/yyyy hh:mm aa</maven.build.timestamp.format>
     </properties>
 
-    <name>TotalFreedomMod</name>
-    <description>Server modification for the TotalFreedom server</description>
-    <url>https://github.com/TotalFreedom/TotalFreedomMod</url>
+    <name>FrostFreedomMod</name>
+    <description>Server modification for the FrostFreedom server</description>
 
     <licenses>
         <license>
@@ -34,17 +33,17 @@
         <name>Total Freedom</name>
         <url>https://totalfreedom.me</url>
     </organization>
-
+    
     <scm>
-        <connection>scm:git:git@github.com:TotalFreedom/TotalFreedomMod.git</connection>
-        <developerConnection>scm:git:git@github.com:TotalFreedom/TotalFreedomMod.git</developerConnection>
-        <url>git@github.com:TotalFreedom/TotalFreedomMod.git</url>
+        <connection>scm:git:git@github.com:FrostFreedom/FrostFreedomMod.git</connection>
+        <developerConnection>scm:git:git@github.com:FrostFreedom/FrostFreedomMod.git</developerConnection>
+        <url>git@github.com:FrostFreedom/FrostFreedomMod.git</url>
     </scm>
 
     <repositories>
         <repository>
             <id>spigot</id>
-            <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
     </repositories>
 
@@ -59,16 +58,23 @@
 
         <dependency>
             <groupId>org.spigotmc</groupId>
-            <artifactId>spigot</artifactId>
-            <version>1.10</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/Spigot-1.10.jar</systemPath>
+            <artifactId>spigot-api</artifactId>
+            <version>1.11.2-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
         </dependency>
-
+    
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot</artifactId>
+            <version>latest</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/spigot.jar</systemPath>
+        </dependency>
+        
         <dependency>
             <groupId>net.pravian</groupId>
             <artifactId>aero</artifactId>
-            <version>2.0</version>
+            <version>latest</version>
             <scope>system</scope>
             <systemPath>${project.basedir}/lib/Aero-2.0.jar</systemPath>
         </dependency>
@@ -76,25 +82,25 @@
         <dependency>
             <groupId>net.totalfreedom</groupId>
             <artifactId>bukkittelnet</artifactId>
-            <version>4.2</version>
+            <version>latest</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/lib/BukkitTelnet-4.3.jar</systemPath>
+            <systemPath>${project.basedir}/lib/BukkitTelnet.jar</systemPath>
         </dependency>
 
         <dependency>
             <groupId>net.totalfreedom</groupId>
             <artifactId>tf-worldedit</artifactId>
-            <version>6.1.0-TF</version>
+            <version>latest</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/lib/TF-WorldEdit-6.1.1.jar</systemPath>
+            <systemPath>${project.basedir}/lib/WorldEdit-FF.jar</systemPath>
         </dependency>
 
         <dependency>
-            <groupId>net.totalfreedom</groupId>
-            <artifactId>tf-essentials</artifactId>
-            <version>2.0-TF</version>
+            <groupId>com.earth2me</groupId>
+            <artifactId>essentials</artifactId>
+            <version>latest</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/lib/TF-Essentials-2.1.jar</systemPath>
+            <systemPath>${project.basedir}/lib/Essentials-FF.jar</systemPath>
         </dependency>
 
         <dependency>
@@ -102,7 +108,7 @@
             <artifactId>LibsDisguises</artifactId>
             <version>9.0.9</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/lib/LibsDisguises-9.0.9.jar</systemPath>
+            <systemPath>${project.basedir}/lib/LibsDisguises.jar</systemPath>
         </dependency>
     </dependencies>
 
@@ -123,8 +129,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.3</version>
                 <configuration>
-                    <outputFileName>TotalFreedomMod.jar</outputFileName>
-                    <compilerVersion>1.7</compilerVersion>
+                    <outputFileName>FrostFreedomMod.jar</outputFileName>
+                    <compilerVersion>1.8</compilerVersion>
                     <source>1.7</source>
                     <target>1.7</target>
                 </configuration>
